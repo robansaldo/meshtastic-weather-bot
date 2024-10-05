@@ -57,10 +57,7 @@ def run():
     # loop over the wx events
     for e in data['features']:
         props = e['properties']
-        # by default, send to p v open channel, but under some conditions send to 0/LongFast
-        channel = 4 # p v open
-        if ((props['severity'] == 'Extreme' or props['severity'] == 'Severe') and (props['certainty'] == 'Observed' or props['certainty'] == 'Likely')):
-            channel = 0 # longfast
+        channel = 0 # longfast - change this to your channel id if you want something else
         # we don't want to send the event multiple time, so get the event id and track which events we've already alerted on
         eid = props['id']
         m = cursor.execute("SELECT count(id) FROM wxevents WHERE id='" + eid + "'")
